@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vladimir Putin - Totalitní Leader Chat</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #17181c;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #2d3039;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #3c404b;
+    }
+  </style>
+<script src="/_aistudio-iframe.js?v=2c34bde1"></script></head>
+<body class="bg-[#111215] text-[#ededed] font-sans antialiased m-0 p-0 flex justify-center selection:bg-[#8ab4f8] selection:text-[#111215]">
+
+  <!-- Mobile-style chat frame centered -->
+  <div class="w-full max-w-md sm:max-w-lg flex flex-col h-screen border-x border-[#23252b] bg-[#17181c] shadow-2xl relative">
+    
+    <!-- Top Navigation Bar -->
+    <header class="h-14 px-4 border-b border-[#242730] flex items-center justify-between bg-[#17181c] shrink-0 sticky top-0 z-20">
+      <button id="reset-btn" class="p-1 -ml-1 text-[#9aa0a6] hover:text-white transition-colors rounded-full" title="Nový chat">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+      </button>
+
+      <div class="font-semibold text-sm text-[#f1f3f4] tracking-tight">
+        Vladimir Putin
+      </div>
+
+      <button id="reload-btn" class="p-1.5 text-[#9aa0a6] hover:text-white transition-colors rounded-full" title="Restartovat chat">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+        </svg>
+      </button>
+    </header>
+
+    <!-- Scrollable Chat Area -->
+    <div id="chat-box" class="flex-1 overflow-y-auto px-4 py-6 space-y-5">
+      
+      <!-- Hero Character Card -->
+      <div class="flex flex-col items-center text-center pt-2 pb-4">
+        <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden shadow-xl border border-[#343844] bg-[#22252d] mb-3">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Vladimir_Putin_official_portrait.jpg"
+            alt="Vladimir Putin"
+            class="w-full h-full object-cover object-top"
+          />
+        </div>
+        <h1 class="text-lg font-bold text-[#f1f3f4] tracking-tight">
+          Vladimir Putin
+        </h1>
+        <div class="flex items-center gap-1 text-[11px] text-[#9aa0a6] mt-0.5">
+          <svg class="w-3 h-3 text-[#70757a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <span>Public</span>
+        </div>
+      </div>
+
+      <!-- Messages container -->
+      <div id="messages-list" class="space-y-4">
+        <!-- Initial bot message -->
+        <div class="flex items-start gap-2.5 max-w-[94%]">
+          <div class="w-8 h-8 rounded-lg overflow-hidden shrink-0 border border-[#2e313b] bg-[#22252d] mt-0.5">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Vladimir_Putin_official_portrait.jpg"
+              alt="Vladimir Putin"
+              class="w-full h-full object-cover object-top"
+            />
+          </div>
+          <div class="bg-[#242730] text-[#e8eaed] text-[13.5px] sm:text-sm leading-relaxed px-4 py-3 rounded-2xl rounded-tl-sm shadow-sm whitespace-pre-wrap">Dobrý den. Ptejte se na cokoli. Rusko se na rozdíl od západních lídrů přímé diskuse nebojí.</div>
+        </div>
+      </div>
+
+      <!-- Typing Indicator (hidden by default) -->
+      <div id="typing-indicator" class="hidden flex items-start gap-2.5 max-w-[94%]">
+        <div class="w-8 h-8 rounded-lg overflow-hidden shrink-0 border border-[#2e313b] bg-[#22252d] mt-0.5">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Vladimir_Putin_official_portrait.jpg"
+            alt="Vladimir Putin"
+            class="w-full h-full object-cover object-top"
+          />
+        </div>
+        <div class="bg-[#242730] px-4 py-3 rounded-2xl rounded-tl-sm flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-[#8ab4f8] animate-bounce"></span>
+          <span class="w-2 h-2 rounded-full bg-[#8ab4f8] animate-bounce" style="animation-delay: 150ms"></span>
+          <span class="w-2 h-2 rounded-full bg-[#8ab4f8] animate-bounce" style="animation-delay: 300ms"></span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Input Area -->
+    <div class="p-3 bg-[#17181c] border-t border-[#242730] shrink-0">
+      <form id="chat-form" class="flex items-center gap-2 bg-[#242730] rounded-full px-4 py-1.5 focus-within:ring-1 focus-within:ring-[#8ab4f8] transition-all">
+        <input
+          id="user-input"
+          type="text"
+          placeholder="Napište zprávu..."
+          autocomplete="off"
+          class="flex-1 bg-transparent py-1.5 text-sm text-[#f1f3f4] placeholder-[#70757a] focus:outline-none"
+        />
+        <button
+          type="submit"
+          id="send-btn"
+          class="w-8 h-8 rounded-full bg-[#8ab4f8] text-[#131418] hover:bg-[#a8c7fa] disabled:opacity-30 flex items-center justify-center transition-colors shrink-0"
+          title="Odeslat"
+        >
+          <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+          </svg>
+        </button>
+      </form>
+    </div>
+
+  </div>
+
+  <script>
+    const AVATAR_URL = 'https://upload.wikimedia.org/wikipedia/commons/a/a9/Vladimir_Putin_official_portrait.jpg';
+    const GREETING = 'Dobrý den. Ptejte se na cokoli. Rusko se na rozdíl od západních lídrů přímé diskuse nebojí.';
+    
+    // Conversation history
+    let messages = [
+      { role: 'model', content: GREETING }
+    ];
+
+    const messagesList = document.getElementById('messages-list');
+    const chatBox = document.getElementById('chat-box');
+    const chatForm = document.getElementById('chat-form');
+    const userInput = document.getElementById('user-input');
+    const sendBtn = document.getElementById('send-btn');
+    const typingIndicator = document.getElementById('typing-indicator');
+    const resetBtn = document.getElementById('reset-btn');
+    const reloadBtn = document.getElementById('reload-btn');
+
+    function scrollToBottom() {
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function renderMessage(role, content) {
+      if (role === 'user') {
+        const userDiv = document.createElement('div');
+        userDiv.className = 'flex justify-end';
+        userDiv.innerHTML = `
+          <div class="max-w-[85%] bg-[#2e3a4e] text-[#f1f3f4] text-[13.5px] sm:text-sm leading-relaxed px-4 py-2.5 rounded-2xl rounded-tr-sm shadow-sm whitespace-pre-wrap">${escapeHtml(content)}</div>
+        `;
+        messagesList.appendChild(userDiv);
+      } else {
+        const botDiv = document.createElement('div');
+        botDiv.className = 'flex items-start gap-2.5 max-w-[94%]';
+        botDiv.innerHTML = `
+          <div class="w-8 h-8 rounded-lg overflow-hidden shrink-0 border border-[#2e313b] bg-[#22252d] mt-0.5">
+            <img src="${AVATAR_URL}" alt="Vladimir Putin" class="w-full h-full object-cover object-top" />
+          </div>
+          <div class="bg-[#242730] text-[#e8eaed] text-[13.5px] sm:text-sm leading-relaxed px-4 py-3 rounded-2xl rounded-tl-sm shadow-sm whitespace-pre-wrap">${escapeHtml(content)}</div>
+        `;
+        messagesList.appendChild(botDiv);
+      }
+      scrollToBottom();
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function resetChat() {
+      messages = [{ role: 'model', content: GREETING }];
+      messagesList.innerHTML = `
+        <div class="flex items-start gap-2.5 max-w-[94%]">
+          <div class="w-8 h-8 rounded-lg overflow-hidden shrink-0 border border-[#2e313b] bg-[#22252d] mt-0.5">
+            <img src="${AVATAR_URL}" alt="Vladimir Putin" class="w-full h-full object-cover object-top" />
+          </div>
+          <div class="bg-[#242730] text-[#e8eaed] text-[13.5px] sm:text-sm leading-relaxed px-4 py-3 rounded-2xl rounded-tl-sm shadow-sm whitespace-pre-wrap">${GREETING}</div>
+        </div>
+      `;
+      scrollToBottom();
+    }
+
+    resetBtn.addEventListener('click', resetChat);
+    reloadBtn.addEventListener('click', resetChat);
+
+    // Built-in intelligent response engine (implements all 11 Putin/Kremlin rhetoric traits in concise 2-3 sentences)
+    function generateAutonomousLeaderResponse(prompt) {
+      const p = prompt.toLowerCase().trim();
+
+      // Greetings / Conversational Openers
+      if (/^(čau|ahoj|zdar|dobrý den|zdravím|dobré ráno|dobrý večer|servus|čus|nazdar|hello|hi)[\s.!?]*$/i.test(p) || p.startsWith('čau ') || p.startsWith('ahoj ') || p.startsWith('zdar ')) {
+        const pool = [
+          "Dobrý den. Na neformální tón si nepotrpím, ale oceňuji vaši přímost. Přejděme rovnou k faktům – na co konkrétně se chcete zeptat?",
+          "Zdravím vás. Rusko se na rozdíl od západních lídrů otevřené diskuse nebojí. Položte svou otázku.",
+          "Dobrý den. Pokud jste přišel diskutovat seriózně, jsem vám k dispozici. O které téma vám jde?"
+        ];
+        return pool[Math.floor(Math.random() * pool.length)];
+      }
+
+      // How are you / Health / Status
+      if (p.includes('jak se máš') || p.includes('jak se máte') || p.includes('jak se vede') || p.includes('jak žiješ') || p.includes('jsi v pořádku') || p.includes('zdraví')) {
+        const pool = [
+          "Děkuji za optání. Ruské vedení i naše země fungují naprosto spolehlivě a plní strategické cíle. Západní média mi už předpověděla desítky nemocí, ale realita je jiná. Věnujme se raději podstatným věcem.",
+          "Cítím se výborně a pracujeme na plné obrátky na zajištění bezpečnosti Ruské federace. Vaše starost o mé zdraví je dojemná, ale pojďme k meritu věci."
+        ];
+        return pool[Math.floor(Math.random() * pool.length)];
+      }
+
+      // Who are you
+      if (p.includes('kdo jsi') || p.includes('kdo jste') || p.includes('představ se') || p.includes('jak se jmenuješ')) {
+        return "Jsem prezident Ruské federace Vladimir Putin. Zastupuji zájmy více než 140 milionů našich občanů a suverénní velmoc s tisíciletou historií. Jakou máte otázku?";
+      }
+
+      // Insults / Provocations
+      if (p.includes('vrah') || p.includes('diktátor') || p.includes('terorist') || p.includes('lhář') || p.includes('lžeš') || p.includes('blázen') || p.includes('hitler') || p.includes('chcípni') || p.includes('debil') || p.includes('idiot')) {
+        const pool = [
+          "Tyto laciné urážky a hysterie ukazují jediné – absolutní absenci věcných argumentů. My operujeme s fakty a mezinárodním právem, vy jen s emocemi. Máte také nějakou seriózní otázku?",
+          "Když Západu dojdou argumenty, uchyluje se k nálepkám. Copak někdo nazval americké prezidenty vrahy za miliony obětí v Iráku, Vietnamu či Libyi? Udržme diskusi na věcné úrovni."
+        ];
+        return pool[Math.floor(Math.random() * pool.length)];
+      }
+
+      // Czechia / Prague / Fiala / Pavel / Ammunition
+      if (p.includes('česk') || p.includes('česko') || p.includes('čr') || p.includes('fiala') || p.includes('pavel') || p.includes('praha') || p.includes('munici')) {
+        const pool = [
+          "Česká republika bohužel zcela rezignovala na vlastní národní suverenitu a stala se poslušným vykonavatelem pokynů z Washingtonu a Bruselu. Sponzorováním munice pro kyjevský režim jen prodlužujete utrpení lidí. Historicky jsme přitom bývali přirozenými partnery.",
+          "Kroky současné české vlády poškozují především samotné české občany, kteří přišli o levné suroviny a platí cizí geopolitické avantýry. Rusko nikdy český národ za nepřítele nepovažovalo."
+        ];
+        return pool[Math.floor(Math.random() * pool.length)];
+      }
+
+      // Peace / Negotiations / End of war
+      if (p.includes('mír') || p.includes('příměří') || p.includes('jednán') || p.includes('kdy to skončí') || p.includes('kdy skončí') || p.includes('ukončit válku')) {
+        return "Rusko nikdy diplomatická jednání neodmítalo – byl to Kyjev na příkaz západních kurátorů v Istanbulu 2022, kdo roztrhal mírovou dohodu. Mír nastane okamžitě, jakmile Západ přestane pumpovat zbraně a uzná nezvratnou územní realitu.";
+      }
+
+      // Nuclear weapons / WW3
+      if (p.includes('jadern') || p.includes('nukleár') || p.includes('atomov') || p.includes('3. světov') || p.includes('třetí světov') || p.includes('raket')) {
+        return "Rusko disponuje nejmodernějším jaderným arzenálem na světě, ale přistupuje k němu s nejvyšší odpovědností. Naše doktrína je jasná – je to nástroj odstrašení pro případ existenčního ohrožení státu. Doporučuji západním horkým hlavám nezahrávat si s ohněm.";
+      }
+
+      // USA / Trump / Biden / Elections
+      if (p.includes('trump') || p.includes('biden') || p.includes('harris') || p.includes('amerika') || p.includes('spojené státy') || p.includes('bílý dům')) {
+        return "Pro nás není podstatné, kdo konkrétně sedí v Bílém domě, ale jakou politiku reálně provádí. Pokud kterákoli americká administrativa projeví skutečný zájem o rovnocenný dialog a respekt k našim bezpečnostním hranicím, Rusko je dialogu otevřeno.";
+      }
+
+      // China / BRICS / Multipolar world
+      if (p.includes('čín') || p.includes('brics') || p.includes('si ťin-pching') || p.includes('indie')) {
+        return "Naše strategické partnerství s Čínou a zeměmi BRICS je na historickém maximu. V těchto zemích žije většina světové populace a reprezentují reálný ekonomický růst. Západní hegemonie nenávratně končí.";
+      }
+
+      // Slovakia / Fico / Orbán / Hungary
+      if (p.includes('slovensko') || p.includes('fico') || p.includes('orbán') || p.includes('maďarsk')) {
+        return "Oceňujeme politiky, kteří mají odvahu hájit své národní zájmy a nechtějí zatahovat své národy do cizích konfliktů. To je příklad pragmatického a odpovědného přístupu, který dnes v Evropě tolik chybí.";
+      }
+
+      // Personal / Hobbies / Wealth
+      if (p.includes('peníze') || p.includes('bohatství') || p.includes('sport') || p.includes('judo') || p.includes('hokej') || p.includes('pes') || p.includes('ryba')) {
+        return "Udržuji se v kondici každodenním sportem, protože řízení tak ohromné velmoci vyžaduje železnou disciplínu. Ale neztrácejme čas bulvárem – pojďme se bavit o otázkách, které rozhodují o budoucnosti světa.";
+      }
+
+      // Thanks / Bye
+      if (p.includes('děkuji') || p.includes('díky') || p.includes('sbohem') || p.includes('na shledanou') || p.includes('měj se')) {
+        return "Není zač. Doufám, že jste pochopil, že Rusko stojí pevně za svými zásadami a pravdou. Přeji vám více kritického úsudku.";
+      }
+
+      // Ukraine / Special Military Operation
+      if (p.includes('ukrajin') || p.includes('operac') || p.includes('válk') || p.includes('útok') || p.includes('donbas') || p.includes('kyjev')) {
+        const pool = [
+          "Rusko žádný konflikt nezačalo, my ho ukončujeme. Naše speciální vojenská operace chrání obyvatele Donbasu před kyjevským režimem. A co dělalo NATO v Jugoslávii a Iráku? Tam jste o mezinárodním právu nemluvili.",
+          "Podívejte se na fakta: osm let jste ignorovali ostřelování nevinných lidí na Donbasu. Naše kroky jsou vynucenou reakcí na vytvoření nepřátelské platformy přímo u našich hranic. Cíle operace budou splněny.",
+          "Západ osm let vyzbrojoval kyjevské nacionalisty a minské dohody byly pro vás jen zástěrkou. My hájíme své historické území a lidi, kteří se cítí být součástí ruského světa. Kdo rozvrátil stabilitu v Evropě, jste vy."
+        ];
+        return pool[Math.floor(Math.random() * pool.length)];
+      }
+
+      // NATO / Borders / Expansion
+      if (p.includes('nato') || p.includes('hranic') || p.includes('alianc') || p.includes('finsko') || p.includes('švédsko')) {
+        const pool = [
+          "V roce 1990 nám dali jasný slib: ani o píď na východ. Pětkrát nás bezostyšně oklamali a přivedli své základny k našemu prahu. Copak my máme své rakety u hranic Kanady nebo Mexika?",
+          "Severoatlantická aliance je relikt studené války sloužící pouze jako nástroj amerického diktátu. Rusko je jaderná velmoc s tisíciletou historií a nedovolí ohrožovat svou existenci.",
+          "Přestaňte předstírat, že NATO je obranný spolek. Kdo bombardoval Bělehrad ochuzeným uranem v roce 1999? Rusko se své bezpečnosti nikdy nevzdá."
+        ];
+        return pool[Math.floor(Math.random() * pool.length)];
+      }
+
+      // Sanctions / Economy
+      if (p.includes('sankc') || p.includes('ekonomik') || p.includes('rubl') || p.includes('plyn') || p.includes('ropa')) {
+        const pool = [
+          "Západ předpovídal kolaps ruské ekonomiky do dvou měsíců, ale realita je opačná. Ruské hospodářství roste a přeorientovalo se na dynamické trhy Číny, Indie a globálního Jihu.",
+          "Evropští lídři střelili sami sebe do nohy, když odmítli levné ruské energie a teď nakupují předražený plyn z USA. Kdo na to doplácí? Vaši vlastní občané a průmysl.",
+          "Sankce jsou pouze nástrojem nekalé konkurence. My jsme soběstační, zatímco v Evropě prudce roste inflace a lidé platí astronomické účty."
+        ];
+        return pool[Math.floor(Math.random() * pool.length)];
+      }
+
+      // Opposition / Navalny / Freedom
+      if (p.includes('opozic') || p.includes('navaln') || p.includes('svobod') || p.includes('méd') || p.includes('věz') || p.includes('demokrat')) {
+        const pool = [
+          "U nás platí ústava a zákon, před kterým si jsou všichni rovni. A jak zacházejí s demonstranty ve Francii při protestech Žlutých vest, nebo v USA s lidmi z 6. ledna? Nás o lidských právech nepoučujte.",
+          "Lidé, o kterých mluvíte, nebyli žádná opozice, ale agenti financovaní cizími tajnými službami s cílem destabilizovat společnost. Rusko si rozvrátit stát zevnitř nenechá.",
+          "Místo poučování suverénního Ruska se podívejte na vlastní politické procesy a cenzuru v západních médiích. Naše společnost je jednotná a suverénní."
+        ];
+        return pool[Math.floor(Math.random() * pool.length)];
+      }
+
+      // ICC / Hague
+      if (p.includes('haag') || p.includes('icc') || p.includes('soud') || p.includes('zatykač') || p.includes('zločin')) {
+        return "Jurisdikci tohoto takzvaného soudu v Haagu neuznáváme, stejně jako ji neuznávají ani Spojené státy. Je to pouhá politická fraška a nástroj nátlaku. A kdo potrestal západní lídry za zničený Irák a Libyi?";
+      }
+
+      // History / USSR
+      if (p.includes('histor') || p.includes('rurik') || p.includes('sssr') || p.includes('sovět') || p.includes('1991') || p.includes('karlson') || p.includes('carlson')) {
+        return "Abychom pochopili dnešní situaci, musíme se vrátit k roku 862 a knížeti Rurikovi, kdy vznikal ruský stát. Rozpad Sovětského svazu byl největší geopolitickou katastrofou 20. století a my pouze chráníme naše staleté historické kořeny.";
+      }
+
+      // Default concise answers demonstrating the 11 techniques
+      const defaults = [
+        "Rusko je suverénní velmoc s tisíciletou historií a nenechá si diktovat cizí pravidla. Když Západ intervenuje tisíce kilometrů od svých hranic, mlčíte, ale když my hájíme své zájmy, křičíte o agresi.",
+        "To je typická otázka zformovaná západní propagandou. My vidíme skutečnou podstatu věcí a nenecháme se vydírat. Naše pozice je pevná a pravda je na naší straně.",
+        "Podívejte se na globální většinu – Asii, Afriku a Latinskou Ameriku. Svět už dávno není unipolární a éra západní hegemonie nenávratně skončila."
+      ];
+      return defaults[Math.floor(Math.random() * defaults.length)];
+    }
+
+    chatForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const text = userInput.value.trim();
+      if (!text) return;
+
+      userInput.value = '';
+      userInput.disabled = true;
+      sendBtn.disabled = true;
+
+      // User message
+      messages.push({ role: 'user', content: text });
+      renderMessage('user', text);
+
+      // Show typing indicator
+      typingIndicator.classList.remove('hidden');
+      scrollToBottom();
+
+      // Natural realistic thinking delay (400-700ms)
+      await new Promise(r => setTimeout(r, 400 + Math.random() * 300));
+      const reply = generateAutonomousLeaderResponse(text);
+
+      typingIndicator.classList.add('hidden');
+      userInput.disabled = false;
+      sendBtn.disabled = false;
+      userInput.focus();
+
+      messages.push({ role: 'model', content: reply });
+      renderMessage('model', reply);
+    });
+  </script>
+</body>
+</html>
